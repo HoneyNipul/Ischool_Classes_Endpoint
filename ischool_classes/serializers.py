@@ -1,0 +1,163 @@
+from rest_framework import serializers
+
+class TermSerializer(serializers.Serializer):
+    termId = serializers.CharField()
+    termName = serializers.CharField()
+    termAcademicYear = serializers.CharField()
+
+
+class BiographySerializerV1(serializers.Serializer):
+    bioType = serializers.CharField()
+    bioText = serializers.CharField()
+
+
+class JobTitlesV1(serializers.Serializer):
+    sortOrder=serializers.IntegerField()
+    jobTitle=serializers.CharField()
+
+
+class InstructorSerializer(serializers.Serializer):
+    netId = serializers.CharField()
+    lastName = serializers.CharField()
+    firstName= serializers.CharField()
+    emailAddress= serializers.CharField()
+    displayName= serializers.CharField()
+    nameLastFirstInitial = serializers.CharField()
+    campusPhone=serializers.CharField(required=False)
+    campusBuilding=serializers.CharField(required=False)
+    campusOfficeRoom=serializers.CharField(required=False)
+    photoUrl=serializers.CharField(required=False)
+    curriculumVitaePublicAccessFlag=serializers.CharField(required=False)
+    curriculumVitaeUrl=serializers.CharField(required=False)
+    biographies=BiographySerializerV1(required=False, many=True)
+    jobTitles=JobTitlesV1(required=False, many=True)
+
+
+class FacilitySerializer(serializers.Serializer):
+    facilityId = serializers.CharField()
+    facilityShortName = serializers.CharField()
+    facilityDisplayName = serializers.CharField()
+    facilityCapacity = serializers.IntegerField()
+
+class ClassSerializerOther(serializers.Serializer):
+    id = serializers.CharField()
+    classNumber = serializers.CharField()
+    courseSubj = serializers.CharField()
+    courseNum = serializers.CharField()
+    courseIdSubjNum = serializers.CharField()
+    courseCredits = serializers.FloatField()
+    courseTitle = serializers.CharField()
+    courseDescription = serializers.CharField()
+    classSection = serializers.CharField()
+    classStart = serializers.CharField()
+    classEnd = serializers.CharField()
+    classCampus = serializers.CharField()
+    classMon = serializers.BooleanField()
+    classTue = serializers.BooleanField()
+    classWed = serializers.BooleanField()
+    classThu = serializers.BooleanField()
+    classFri = serializers.BooleanField()
+    classSat = serializers.BooleanField()
+    classSun = serializers.BooleanField()
+    classSessionCode = serializers.CharField()
+    classAcadCareer = serializers.CharField()
+    classLocationCode = serializers.CharField()
+    classInstructionMode = serializers.CharField()
+    classEnrollmentCapacity = serializers.IntegerField()
+    classEnrollmentTotal = serializers.IntegerField()
+    classNotes = serializers.CharField()
+    lastUpdate = serializers.CharField()
+    isGrad = serializers.BooleanField()
+    isOnline = serializers.BooleanField()
+    classStartDate = serializers.CharField()
+    classEndDate = serializers.CharField()
+    classMeetingDays = serializers.CharField()
+    classMeetingTimes = serializers.CharField()
+    syllabusAccessFlag = serializers.BooleanField()
+    syllabusAuthOnly = serializers.BooleanField()
+    syllabusContentFileId = serializers.CharField()
+    syllabusUrl = serializers.CharField()
+    professorOfRecord = serializers.CharField()
+    facilities = FacilitySerializer(many=True)
+    instructors = InstructorSerializer(many=True)
+    instructorsFullInfo = InstructorSerializer(many=True)
+
+class ClassSerializer(serializers.Serializer):
+    id = serializers.CharField()
+    classNumber = serializers.CharField()
+    courseSubj = serializers.CharField()
+    courseNum = serializers.CharField()
+    courseIdSubjNum = serializers.CharField()
+    courseCredits = serializers.FloatField()
+    courseTitle = serializers.CharField()
+    courseDescription = serializers.CharField()
+    classSection = serializers.CharField()
+    classStart = serializers.CharField()
+    classEnd = serializers.CharField()
+    classCampus = serializers.CharField()
+    classMon = serializers.BooleanField()
+    classTue = serializers.BooleanField()
+    classWed = serializers.BooleanField()
+    classThu = serializers.BooleanField()
+    classFri = serializers.BooleanField()
+    classSat = serializers.BooleanField()
+    classSun = serializers.BooleanField()
+    classSessionCode = serializers.CharField()
+    classAcadCareer = serializers.CharField()
+    classLocationCode = serializers.CharField()
+    classInstructionMode = serializers.CharField()
+    classEnrollmentCapacity = serializers.IntegerField()
+    classEnrollmentTotal = serializers.IntegerField()
+    classNotes = serializers.CharField()
+    lastUpdate = serializers.CharField()
+    isGrad = serializers.BooleanField()
+    isOnline = serializers.BooleanField()
+    classStartDate = serializers.CharField()
+    classEndDate = serializers.CharField()
+    classMeetingDays = serializers.CharField()
+    classMeetingTimes = serializers.CharField()
+    syllabusAccessFlag = serializers.BooleanField()
+    syllabusAuthOnly = serializers.BooleanField()
+    syllabusContentFileId = serializers.CharField()
+    syllabusUrl = serializers.CharField()
+    professorOfRecord = serializers.CharField()
+    facilities = FacilitySerializer(many=True)
+    instructors = InstructorSerializer(many=True)
+    instructorsFullInfo = InstructorSerializer(many=True)
+
+    def get_fields(self):
+        fields = super(ClassSerializer, self).get_fields()
+        fields['otherSections'] = ClassSerializerOther(many=True)
+        return fields
+
+
+class WaitlistClassSerializer(serializers.Serializer):
+    Id = serializers.IntegerField()
+    classId = serializers.CharField()
+    netId = serializers.CharField()
+    addDatetime = serializers.CharField()
+    listStatus = serializers.CharField()
+    termId = serializers.CharField()
+    courseSubj = serializers.CharField()
+    courseNum = serializers.CharField()
+    courseTitle = serializers.CharField()
+    classSection = serializers.CharField()
+    classMeetingDays = serializers.CharField()
+    classMeetingTimes = serializers.CharField()
+
+
+class ClassWaitlistEntrySerializer(serializers.Serializer):
+    Id = serializers.IntegerField()
+    classId = serializers.CharField()
+    addDatetime = serializers.DateTimeField()
+    listStatus = serializers.CharField()
+    termId = serializers.CharField()
+    lastUpdate = serializers.DateTimeField()
+    lastUpdateMessage = serializers.CharField()
+    netId = serializers.CharField()
+    email = serializers.CharField()
+    lastName = serializers.CharField()
+    firstName = serializers.CharField()
+
+class EmptySerializer(serializers.Serializer):
+    pass
